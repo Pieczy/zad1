@@ -1,0 +1,36 @@
+version: '3'
+services:
+ mysql:
+  image: mysql
+  container_name: pwcho2018_83809
+  ports:
+   - "3306"
+  environment:
+   - MYSQL_ROOT_PASSWORD=root
+   - MYSQL_DATABASE=baza
+   - MYSQL_USER=pieczy
+   - MYSQL_PASSWORD=password
+  networks:
+   - Bridge_Zadanie_1
+   - ipv4_address: 10.0.10.3
+   
+ java: 
+  build: ./mpieczykolan/zadanie1
+  container_name: java
+  depends_on:
+   - mysql
+  ports:
+   - "80:3306"
+  networks:
+   - Bridge_Zadanie_1
+
+networks:
+ Bridge_Zadanie_1:
+  driver: bridge
+  ipam:
+   config:
+    - subnet: 10.0.10.0/24 
+	
+
+
+
